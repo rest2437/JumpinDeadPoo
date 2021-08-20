@@ -60,7 +60,7 @@ function animate() {
 }
 animate();
 
-//  KEYBOARD INTERACTION LOGIC //
+//  KEYBOARD INTERACTION LOGIC s//
 
 function movePlayer() {
   // check keys
