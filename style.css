@@ -23,7 +23,7 @@ html {
     "top-center"
     "game"
     "btm-center";
-  background-color: blue;
+  background-color: black;
   align-items: center;
   border: 5px solid white;
   height: 835px;
@@ -35,8 +35,10 @@ html {
 #game {
   height: 600px;
   width: 640px;
-  background-color: white;
+  background-size: contain;
+  animation: displace 2s linear infinite;
   margin-left: 30px;
+  margin-right: 30px;
 }
 
 #title {
@@ -60,12 +62,6 @@ html {
   position: absolute;
 }
 
-.dude {
-  width: 60px;
-  height: 85px;
-  background-color: red;
-  position: absolute;
-}
 main {
   grid-area: game;
 }

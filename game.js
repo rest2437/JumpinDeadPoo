@@ -1,183 +1,146 @@
-/***
- * @todo create canvas *******
- * @todo create player *******
- * @todo make player jump and move left to right
- * @todo if player falls, player dies
- * @tood if player hit enemy, player dies
- * @todo create enemy AI
- * @todo display score during game play
- * @todo display player lost when dies
- */
-
 // GLOBAL DOM / VARIABLES //
-
-let game = document.querySelector("#game");
-//console.log(game);
-let dude;
-let platforms;
-let isGameOver = false;
-// let platformCount = 5;
-// let platforms = [];
+(function () {
+  var requestAnimationFrame =
+    window.requestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.msRequestAnimationFrame;
+  window.requestAnimationFrame = requestAnimationFrame;
+})();
 
 // ====================== SETUP FOR CANVAS RENDERING ======================= //
-const ctx = game.getContext("2d");
-// ctx.fillerStyle = "white";
-// ctx.strokeStyle = "red";
-// ctx.lineWidth = 5;
-// ctx.fillRect(10, 10, 100, 100);
-// ctx.strokeRect(10, 10, 100, 100);
+var canvas = document.getElementById("game"),
+  ctx = canvas.getContext("2d"),
+  width = 540,
+  height = 540;
+const player = {
+  animation: new Animation(),
+  x: 250,
+  y: 494,
+  width: 32,
+  height: 48,
+  speed: 3,
+  vrX: 0,
+  vrY: 0,
+  frameX: 0,
+  frameY: 0,
+  moving: false,
+  jumping: false,
+};
+//-------------ANIMATION FUNCTIONS--------------//
+const playerSprite = new Image();
+playerSprite.src = "deadpool.png";
+const background = new Image();
+background.src = "background.jpeg";
+(keys = []), (friction = 0.8), (gravity = 0.3);
 
-game.setAttribute("class", "main-game");
-game.setAttribute("height", getComputedStyle(game)["height"]);
-game.setAttribute("width", getComputedStyle(game)["width"]);
-// ====================== ENTITIES ======================= //
-
-//add render for dude and platforms
-class Dude {
-  constructor(x, y, color, width, height) {
-    this.x = x;
-    this.y = y;
-    this.color = color;
-    this.width = width;
-    this.height = height;
-    this.alive = true;
-
-    this.render = function () {
-      ctx.fillStyle = this.color;
-      ctx.fillRect(this.x, this.y, this.width, this.height);
-    };
-  }
+canvas.width = width;
+canvas.height = height;
+function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+  ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
 }
-// function createDude() {
-//   dude.alive = false;
-//   setTimeout(() => {
-//     let x = Math.floor(Math.random() * game.width) - 40;
-//     let y = Math.floor(Math.random() * game.height) - 80;
-//     dude = new Dude(x, y, "orange", 40, 80);
-//   }, 1000);
-//   return true;
-// }
-class Platform {
-  constructor(x, y, color, width, height) {
-    this.x = x;
-    this.y = y;
-    this.color = color;
-    this.width = width;
-    this.height = height;
 
-    this.render = function () {
-      ctx.fillstyle = this.color;
-      ctx.fillRect = (this.x, this.y, this.width, this.height);
-    };
-  }
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+  drawSprite(
+    playerSprite,
+    player.width * player.frameX,
+    player.height * player.frameY,
+    player.width,
+    player.height,
+    player.x,
+    player.y,
+    player.width,
+    player.height
+  );
+  movePlayer();
+  handlePlayerFrame();
+  requestAnimationFrame(animate);
 }
-function createPlatforms() {
-  dude.alive = true;
-  setTimeout(() => {
-    let x = Math.floor(Math.random() * game.width) - 40;
-    let y = Math.floor(Math.random() * game.height) - 80;
-    platforms = new Platform(300, 400, "green", 85, 15);
-  }, 1000);
-}
-// ====================== HELPER FUNCTIONS ======================= //
+animate();
 
-//======================= EVENT LISTENERS=========================//
-window.addEventListener("DOMContentLoaded", (e) => {
-  dude = new Dude(295, 520, "orange", 60, 85);
-  platforms = new Platform(300, 400, "green", 85, 15);
-  document.addEventListener("keydown", movementHandler);
-  const runGame = setInterval(gameLoop, 80);
-  //   movementHandler(e) //
-});
-
-// SANDBOX FOR TESTING PAINTING TECHNIQUES//
-
-//  GUIw //
-// function movePlatforms() {
-//   if (dudeBottomSpace > 200) {
-//     platforms.forEach((platform) => {
-//       platform.bottom -= 4;
-//       let visual = platform.visual;
-//       visual.style.bottom = platform.bottom + "px";
-//     });
-//   }
-// }
 //  KEYBOARD INTERACTION LOGIC //
-function movementHandler(e) {
-  switch (e.keyCode) {
-    case 87: //up
-      dude.y - 20 >= 0 ? (dude.y -= 10) : null;
-      break;
-    case 65: //left
-      dude.x - 20 >= 0 ? (dude.x -= 10) : null;
-      break;
-    case 83: //down
-      dude.y + 20 <= game.height ? (dude.y += 10) : null;
-      break;
-    case 68: //right
-      dude.x + 20 <= game.width ? (dude.x += 10) : null;
-      break;
+
+function movePlayer() {
+  // check keys
+  if (keys[38] || keys[32]) {
+    // up arrow or space
+    if (!player.jumping) {
+      player.jumping = true;
+      player.vrY = -player.speed * 3;
+      player.frameY = 0;
+      player.moving = true;
+    }
+  }
+  if (keys[39]) {
+    // right arrow
+    if (player.vrX < player.speed) {
+      player.vrX++;
+      player.frameY = 2;
+      player.moving = true;
+    }
+  }
+  if (keys[37] && player.y > 100) {
+    // left arrow
+    player.x -= player.speed;
+    player.frameY = 1;
+    player.moving = true;
+  }
+
+  player.vrX *= friction;
+
+  player.vrY += gravity;
+
+  player.x += player.vrX;
+  player.y += player.vrY;
+
+  if (player.x >= width - player.width) {
+    player.x = width - player.width;
+  } else if (player.x <= 0) {
+    player.x = 0;
+  }
+
+  if (player.y >= height - player.height) {
+    player.y = height - player.height;
+    player.jumping = false;
   }
 }
+function handlePlayerFrame() {
+  if (player.frameX < 3 && player.moving) player.frameX++;
+  else player.frameX = 0;
+}
+
 // ====================== GAME PROCESSES ======================= //
 
-function gameLoop() {
-  ctx.clearRect(0, 0, game.width, game.height);
-  if (dude.alive) {
-    dude.render();
-  }
-  //platform.render();
-}
-function jump() {
-  clearInterval(downTimerId);
-  upTimerId = setInterval(function () {
-    dudeBottomSpace += 30;
-    dude.style.bottom = dudeBottomSpace + "px";
-    if (dudeBottomSpace < 200) {
-      fall();
-    }
-  }, 30);
-}
-function fall() {
-  clearInterval(upTimerId);
-  downTimerId = setInterval(function () {
-    dudeBottomSpace -= 5;
-    dude.style.bottom = dudeBottomSpace + "px";
-    if (dudeBottomSpace <= 0) {
-      GameOver();
-    }
-  });
-}
+//======================= EVENT LISTENERS=========================//
 
-function gameOver() {
-  //console.log ('game over');
-  isGameOver = true;
-  clearInterval(upTimerId);
-  clearInterval(downTimerId);
-}
+document.body.addEventListener("keydown", function (e) {
+  keys[e.keyCode] = true;
+  player.moving = true;
+});
 
-// function start() {
-//   if (!isGameOver) {
-//     createPlatforms();
-//     createDude();
-//     setInterval(movePlatforms, 60);
-//     jump();
-//   }
-// }
-// //attach to a button
-// start();
-// ====================== COLLISION DETECTION ======================= //
+document.body.addEventListener("keyup", function (e) {
+  delete keys[e.keyCode];
+  player.moving = false;
+  console.log(keys);
+});
 
-// ====================== PAINT INTIAL SCREEN ======================= //
+// window.addEventListener("load", function () {
+//   update();
+// });
 
-//old code
-// function createPlatforms() {
-//   setTimeout(() => {
-//     for (let i = 0; i < platformCount; i++) {
-//       let x = Math.floor(Math.random() * game.width) - 40;
-//       let y = Math.floor(Math.random() * game.height) - 80;
-//       platforms = new Platform(300, 400, "green", 85, 15);
-//     }
-//   }, 1000);
-// }
-// console.log(platforms);
+//--------------------OLD CODE---------------------//
+// ctx.clearRect(0, 0, width, height);
+// ctx.fillStyle = "blue";
+// ctx.fillRect(player.x, player.y, player.width, player.height);
+
+//   requestAnimationFrame(update);
+
+// document.body.addEventListener("keyup", function (e){
+//     keys[e.keyCode] = false;
+//   });
+
+//================SOURCE CREDIT================//
+//Bradley Ripple for prividing source to sprite insuration and animation
+//https://www.youtube.com/watch?v=EYf_JwzwTlQ&t=15s
