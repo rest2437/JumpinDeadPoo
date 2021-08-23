@@ -62,3 +62,30 @@ html {
 main {
   grid-area: game;
 }
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: black;
+  }
+  #canvas1 {
+    height: 350px;
+    width: 475px;
+    margin-left: 0px;
+  }
+  .container {
+    display: grid;
+    grid-gap: 1em;
+    grid-template-rows: 0.05fr 1fr 0.05fr;
+    grid-template-areas:
+      "top-center"
+      "game"
+      "btm-center";
+    background-color: black;
+    align-items: center;
+    border: 5px solid white;
+    height: 600px;
+    width: 600px;
+    max-height: 835px;
+    max-width: 800px;
+  }
+}

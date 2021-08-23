@@ -60,12 +60,18 @@ function animate() {
 }
 animate();
 
-window.addEventListener("keydown" || "touch", function (e) {
+window.addEventListener("keydown", function (e) {
   if (e.code === "Space") spacePressed = true;
 });
-window.addEventListener("keyup" || "touch", function (e) {
+window.addEventListener("keyup", function (e) {
   if (e.code === "Space") spacePressed = false;
   deadpool.frameX = 0;
+});
+window.addEventListener("touchstart", function (e) {
+  if ("touchstart") spacePressed = true;
+});
+window.addEventListener("touchend", function (e) {
+  if ("touchend") spacePressed = false;
 });
 
 const bang = new Image();
