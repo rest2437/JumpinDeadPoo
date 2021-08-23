@@ -66,35 +66,35 @@ window.addEventListener(
     e.preventDefault();
   },
   false
-);
-window.addEventListener(
-  "touchstart",
-  function (e) {
-    e.preventDefault();
-  },
-  false
-);
-window.addEventListener(
-  "touchend",
-  function (e) {
-    e.preventDefault();
-  },
-  false
-);
-window.addEventListener(
-  "touhmove",
-  function (e) {
-    e.preventDefault();
-  },
-  false
-);
-window.addEventListener(
-  "touchcancel",
-  function (e) {
-    e.preventDefault();
-  },
-  false
-);
+// );
+// window.addEventListener(
+//   "touchstart",
+//   function (e) {
+//     e.preventDefault();
+//   },
+//   false
+// );
+// window.addEventListener(
+//   "touchend",
+//   function (e) {
+//     e.preventDefault();
+//   },
+//   false
+// );
+// window.addEventListener(
+//   "touhmove",
+//   function (e) {
+//     e.preventDefault();
+//   },
+//   false
+// );
+// window.addEventListener(
+//   "touchcancel",
+//   function (e) {
+//     e.preventDefault();
+//   },
+//   false
+// );
 
 window.addEventListener("keydown", function (e) {
   if (e.code === "Space") spacePressed = true;
