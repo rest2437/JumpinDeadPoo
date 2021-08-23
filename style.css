@@ -26,6 +26,7 @@ html {
   background-color: black;
   align-items: center;
   border: 5px solid white;
+  border-radius: 25px;
   height: 600px;
   width: 700px;
   max-height: 835px;
