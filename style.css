@@ -60,6 +60,9 @@ html {
   background-color: orange;
   position: absolute;
 }
+#mobile {
+  display: none;
+}
 
 main {
   grid-area: game;
