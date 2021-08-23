@@ -63,13 +63,13 @@ main {
   grid-area: game;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
   body {
     background-color: black;
   }
   #canvas1 {
-    height: 350px;
-    width: 475px;
+    height: 300px;
+    width: 425px;
     margin-left: 0px;
   }
   .container {
@@ -85,7 +85,7 @@ main {
     border: 5px solid white;
     height: 600px;
     width: 600px;
-    max-height: 835px;
-    max-width: 800px;
+    max-height: 500px;
+    max-width: 500px;
   }
 }
