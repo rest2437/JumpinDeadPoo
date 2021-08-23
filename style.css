@@ -8,6 +8,7 @@ body {
   background-repeat: space;
   background-color: rgb(71, 69, 69);
   margin: 0;
+  touch-action: manipulation;
 }
 
 html {

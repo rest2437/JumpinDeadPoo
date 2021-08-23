@@ -59,7 +59,7 @@ function animate() {
   frame++;
 }
 animate();
-//prevents element highlighting when mouse clicked more than once
+//prevents element highlighting when mouse clicked more than once and touched more than once on media devices
 window.addEventListener(
   "mousedown",
   function (e) {
@@ -69,6 +69,27 @@ window.addEventListener(
 );
 window.addEventListener(
   "touchstart",
+  function (e) {
+    e.preventDefault();
+  },
+  false
+);
+window.addEventListener(
+  "touchend",
+  function (e) {
+    e.preventDefault();
+  },
+  false
+);
+window.addEventListener(
+  "touhmove",
+  function (e) {
+    e.preventDefault();
+  },
+  false
+);
+window.addEventListener(
+  "touchcancel",
   function (e) {
     e.preventDefault();
   },
