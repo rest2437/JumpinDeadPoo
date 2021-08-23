@@ -66,7 +66,7 @@ window.addEventListener(
     e.preventDefault();
   },
   false
-// );
+);
 // window.addEventListener(
 //   "touchstart",
 //   function (e) {
