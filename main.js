@@ -59,6 +59,21 @@ function animate() {
   frame++;
 }
 animate();
+//prevents element highlighting when mouse clicked more than once
+window.addEventListener(
+  "mousedown",
+  function (e) {
+    e.preventDefault();
+  },
+  false
+);
+window.addEventListener(
+  "touchstart",
+  function (e) {
+    e.preventDefault();
+  },
+  false
+);
 
 window.addEventListener("keydown", function (e) {
   if (e.code === "Space") spacePressed = true;
