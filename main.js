@@ -9,6 +9,9 @@ let hue = 0;
 let frame = 0;
 let score = 0;
 let gamespeed = 4;
+let playing = false;
+let startButton;
+
 // fail = new sound("TBD"); //make file
 
 //gradient score keeper
