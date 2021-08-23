@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Jumpin Dead-Poo</title>
+    <link rel="stylesheet" href="./style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
@@ -14,19 +14,23 @@
 </head>
 
 <body>
+    <embed src="./dmx.mp3" loop="true" hidden="true" autostart="true">
     <div class="container">
         <aside id="title">
             <main>
                 <h2>Jumpin Dead-Poo</h2>
             </main>
         </aside>
-        <canvas id="game"></canvas>
+        <canvas id="canvas1"></canvas>
         <aside id="start">
-            <h2 class="start">start</h2>
+            <h2 class="restart-btn">Start/Restart</h2><br>
+            <h2 class="instuctions">Instructions.... Press space to keep airborn</h2>
         </aside>
     </div>
+    <script src="./deadpoo.js"></script>
+    <script src="./particles.js"></script>
+    <script src="./obstacles.js"></script>
+    <script src="./main.js"></script>
 </body>
-<script src="./game.js"></script>
-
 
 </html>
