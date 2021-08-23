@@ -108,6 +108,7 @@ window.addEventListener("touchstart", function (e) {
 });
 window.addEventListener("touchend", function (e) {
   if ("touchend") spacePressed = false;
+  deadpool.frameX = 0;
 });
 
 const bang = new Image();
